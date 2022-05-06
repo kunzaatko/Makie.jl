@@ -1,15 +1,22 @@
 # This file was generated, do not modify it. # hide
 __result = begin # hide
-    using CairoMakie
+    using CairoMakie, Distributions
 CairoMakie.activate!() # hide
 Makie.inline!(true) # hide
 
-xs = rand(1:3, 1000)
-ys = randn(1000)
-dodge = rand(1:2, 1000)
+N = 100_000
+x = rand(1:3, N)
+y = rand(Uniform(-1, 5), N)
 
-boxplot(xs, ys, dodge = dodge, show_notch = true, color = map(d->d==1 ? :blue : :red, dodge) , outliercolor = rand([:red, :green, :blue, :black, :yellow], 1000))
+w = pdf.(Normal(), x .- y)
+
+fig = Figure()
+
+boxplot(fig[1,1], x, y)
+boxplot(fig[1,2], x, y, weights = w)
+
+fig
 end # hide
-save(joinpath(@OUTPUT, "example_5751636191102347416.png"), __result) # hide
+save(joinpath(@OUTPUT, "example_16182352727935647258.png"), __result) # hide
 
 nothing # hide

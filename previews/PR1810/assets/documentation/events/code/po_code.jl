@@ -1,8 +1,7 @@
 # This file was generated, do not modify it. # hide
 using Makie
-using Makie: PriorityObservable
 
-po = PriorityObservable(0)
+po = Observable(0)
 
 println("With low priority listener:")
 on(po, priority = -1) do x

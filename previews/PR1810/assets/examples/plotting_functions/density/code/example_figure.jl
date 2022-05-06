@@ -1,17 +1,20 @@
 # This file was generated, do not modify it. # hide
 __result = begin # hide
-    using CairoMakie
+    using CairoMakie, Distributions
 CairoMakie.activate!() # hide
 Makie.inline!(true) # hide
 
-f = Figure()
-Axis(f[1, 1])
-for x in 1:5
-    d = density!(x * randn(200) .+ 3x,
-        color = :y, colormap = [:darkblue, :gray95])
-end
-f
+N = 100_000
+x = rand(Uniform(-2, 2), N)
+
+w = pdf.(Normal(), x)
+
+fig = Figure()
+density(fig[1,1], x)
+density(fig[1,2], x, weights = w)
+
+fig
 end # hide
-save(joinpath(@OUTPUT, "example_3516370846501123851.png"), __result) # hide
+save(joinpath(@OUTPUT, "example_504294024256947752.png"), __result) # hide
 
 nothing # hide
